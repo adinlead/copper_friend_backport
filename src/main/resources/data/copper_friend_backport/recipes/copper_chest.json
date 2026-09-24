@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "CCC",
-    "CXC",
-    "CCC"
+    "S",
+    "C",
+    "S"
   ],
   "key": {
-    "C": {
-      "item": "minecraft:copper_ingot"
+    "S": {
+      "item": "minecraft:cut_copper_slab"
     },
-    "X": {
+    "C": {
       "item": "minecraft:chest"
     }
   },

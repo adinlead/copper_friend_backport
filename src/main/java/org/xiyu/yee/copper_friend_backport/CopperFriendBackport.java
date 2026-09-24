@@ -3,6 +3,7 @@ package org.xiyu.yee.copper_friend_backport;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import org.xiyu.yee.copper_friend_backport.registry.ModEntityDataSerializers;
@@ -24,7 +25,11 @@ public class CopperFriendBackport {
 
         // Register configuration
         CopperGolemConfig.register(context);
-        
+
+        // 需求点3：在 MOD 加载阶段校验容器配置冲突，存在冲突则抛出异常阻止游戏启动
+        // FMLCommonSetupEvent 触发时 COMMON 配置文件已加载完成
+        modEventBus.addListener((FMLCommonSetupEvent event) -> CopperGolemConfig.validateContainerConfig());
+
         ModEntityDataSerializers.init();
         
         // Register memory modules

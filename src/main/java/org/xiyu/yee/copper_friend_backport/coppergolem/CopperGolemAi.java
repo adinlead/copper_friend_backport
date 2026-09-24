@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
@@ -29,7 +28,6 @@ import org.jetbrains.annotations.Nullable;
 import org.xiyu.yee.copper_friend_backport.CopperGolemConfig;
 import org.xiyu.yee.copper_friend_backport.copper_chest.CopperChestBlockEntity;
 import org.xiyu.yee.copper_friend_backport.coppergolem.behavior.TransportItemsBetweenContainers;
-import org.xiyu.yee.copper_friend_backport.registry.ModBlockTags;
 import org.xiyu.yee.copper_friend_backport.registry.ModMemoryModules;
 import org.xiyu.yee.copper_friend_backport.registry.ModSoundEvents;
 
@@ -45,8 +43,8 @@ public class CopperGolemAi {
     private static final int TRANSPORT_ITEM_VERTICAL_SEARCH_RADIUS = 8;
     private static final int TICK_TO_START_ON_REACHED_INTERACTION = 1;
     private static final int TICK_TO_PLAY_ON_REACHED_SOUND = 9;
-    private static final Predicate<BlockState> TRANSPORT_ITEM_SOURCE_BLOCK = blockState -> blockState.is(ModBlockTags.COPPER_CHESTS);
-    private static final Predicate<BlockState> TRANSPORT_ITEM_DESTINATION_BLOCK = blockState -> blockState.is(Blocks.CHEST) || blockState.is(Blocks.TRAPPED_CHEST);
+    // 需求点1&2：取出/存入容器判定改为从配置构建，不再使用硬编码标签/方块
+    // 谓词在大脑初始化时构建，详见 CopperGolemConfig#buildExtractPredicate / buildDepositPredicate
     private static final ImmutableList<SensorType<? extends Sensor<? super CopperGolem>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY
     );
@@ -107,8 +105,10 @@ public class CopperGolemAi {
                                 0,
                                 new TransportItemsBetweenContainers(
                                         CopperGolemConfig.getIdleSpeedMultiplier(),
-                                        TRANSPORT_ITEM_SOURCE_BLOCK,
-                                        TRANSPORT_ITEM_DESTINATION_BLOCK,
+                                        // 需求点1：取出容器谓词来自配置 extractContainerIds
+                                        CopperGolemConfig.buildExtractPredicate(),
+                                        // 需求点2：存入容器谓词来自配置 depositContainerIds
+                                        CopperGolemConfig.buildDepositPredicate(),
                                         CopperGolemConfig.getTransportHorizontalSearchRadius(),
                                         CopperGolemConfig.getTransportVerticalSearchRadius(),
                                         getTargetReachedInteractions(),
