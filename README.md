@@ -164,6 +164,18 @@ All Rights Reserved
 - ✅ 蜂蜡/斧头交互
 - ✅ 剪羊毛功能
 
+
+### v1.0.1
+- 支持更多箱子(Iron Chests)MOD，傀儡可以在更多箱子MOD中的铜箱子里拿取物品
+- 支持自由配置容器，配置项名称: [ai_behavior.containers]
+  - extractContainerIds: 可取出物品的容器
+    - > 本模组的铜箱子
+    - > 更多箱子MOD：铜箱子
+  - depositContainerIds: 可存入的容器
+    - > 原版箱子、陷阱箱子
+    - > 更多箱子MOD：铁箱子、金箱子、钻石箱、水晶石箱子、黑曜石箱子
+- 修复铜箱子出现在JEI合成站中的问题
+
 ## 🎯 已知问题
 
 无重大已知问题。如发现 bug 请提交 issue。
