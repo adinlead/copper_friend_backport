@@ -139,7 +139,8 @@ public class CopperGolemConfig {
                     "copper_friend_backport:waxed_copper_chest",
                     "copper_friend_backport:waxed_exposed_copper_chest",
                     "copper_friend_backport:waxed_weathered_copper_chest",
-                    "copper_friend_backport:waxed_oxidized_copper_chest"
+                    "copper_friend_backport:waxed_oxidized_copper_chest",
+                    "ironchest:copper_chest"   // 更多箱子MOD: 铜箱子
                 ),
                 obj -> obj instanceof String
             );
@@ -155,7 +156,12 @@ public class CopperGolemConfig {
                 "depositContainerIds",
                 Arrays.asList(
                     "minecraft:chest",
-                    "minecraft:trapped_chest"
+                    "minecraft:trapped_chest",
+                    "ironchest:iron_chest",   // 更多箱子MOD: 铁箱子
+                    "ironchest:gold_chest",   // 更多箱子MOD: 金箱子
+                    "ironchest:diamond_chest",   // 更多箱子MOD: 钻石箱子
+                    "ironchest:crystal_chest",   // 更多箱子MOD: 水晶石箱子
+                    "ironchest:obsidian_chest"   // 更多箱子MOD: 黑曜石箱子
                 ),
                 obj -> obj instanceof String
             );
